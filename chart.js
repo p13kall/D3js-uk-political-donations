@@ -21,7 +21,7 @@ var entityCentres = {
 		individual: {x: w / 3.65, y: h / 3.3},
 	};
 
-var fill = d3.scale.ordinal().range(["#F02233", "#087FBD", "#FDBB30"]);
+var fill = d3.scale.ordinal().range(["#006400", "#000000", "#000080"]);
 
 var svgCentre = { 
     x: w / 3.6, y: h / 2
@@ -92,7 +92,8 @@ function start() {
 		.attr("r", 0)
 		.style("fill", function(d) { return fill(d.party); })
 		.on("mouseover", mouseover)
-		.on("mouseout", mouseout);
+		.on("mouseout", mouseout)
+	.on("click",search);
 		// Alternative title based 'tooltips'
 		// node.append("title")
 		//	.text(function(d) { return d.donor; });
@@ -357,9 +358,16 @@ function mouseout() {
 		d3.select(".tooltip")
 			.style("display", "none");
 		}
-
+function search(d,i){
+	var mosie = d3.select(this);
+	var donor=d.donor;
+	var srch='http://www.google.com/search?q='+donor;
+	window.open(srch,'_blank');
+}
 $(document).ready(function() {
 		d3.selectAll(".switch").on("click", function(d) {
+			var sound=document.getElementById('onClickSound');
+	sound.play();
       var id = d3.select(this).attr("id");
       return transition(id);
     });
